@@ -1,9 +1,28 @@
 import React, { useRef, useEffect } from "react";
-import { Animated, View, StyleSheet, Dimensions } from "react-native";
+import { Animated, View, StyleSheet, Dimensions, Image } from "react-native";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = 200;
 const NUM_CARDS = 4;
+
+const images = [
+  {
+    id: "1",
+    imageSource: require("../assets/Card_Image_Portrait_Left.png"),
+  },
+  {
+    id: "2",
+    imageSource: require("../assets/Card_Image_Portrait_3.png"),
+  },
+  {
+    id: "3",
+    imageSource: require("../assets/Card_Image_Portrait_5.png"),
+  },
+  {
+    id: "4",
+    imageSource: require("../assets/Card_Image_Portrait_4.png"),
+  },
+];
 
 const Index = () => {
   const topRow = useRef(new Animated.Value(0)).current;
@@ -59,8 +78,32 @@ const Index = () => {
           },
         ]}
       >
-        {Array.from({ length: NUM_CARDS }).map((_, index: number) => (
-          <View key={index} style={styles.card} />
+        {/* {Array.from({ length: NUM_CARDS }).map((_, index: number) => (
+          <View key={index}>
+            <Image
+              style={styles.card}
+              source={require("../assets/Card_Image_Portrait_Left.png")}
+            ></Image>
+            <Image
+              style={styles.card}
+              source={require("../assets/Card_Image_Portrait_3.png")}
+            ></Image>
+            <Image
+              style={styles.card}
+              source={require("../assets/Card_Image_Portrait_5.png")}
+            ></Image>
+            <Image
+              style={styles.card}
+              source={require("../assets/Card_Image_Portrait_4.png")}
+            ></Image>
+          </View>
+        ))} */}
+        {images.map((image) => (
+          <Image
+            key={image.id}
+            style={styles.card}
+            source={image.imageSource}
+          ></Image>
         ))}
       </Animated.View>
     );
@@ -88,7 +131,7 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     height: 100,
     margin: 5,
-    backgroundColor: "grey",
+    // backgroundColor: "grey",
     borderRadius: 10,
   },
 });
