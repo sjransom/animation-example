@@ -56,8 +56,16 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      {renderCards(topRow, 0)}
-      {renderCards(bottomRow, 110)}
+      <View style={styles.cinemaContainer}>
+        <Image
+          style={{ width: 80, height: 80 }}
+          source={require("../assets/sky-cinema.png")}
+        />
+      </View>
+      <View style={styles.rowContainer}>
+        {renderCards(topRow, 0)}
+        {renderCards(bottomRow, 110)}
+      </View>
     </View>
   );
 };
@@ -65,7 +73,17 @@ const Index = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    position: "relative",
+  },
+  cinemaContainer: {
+    position: "absolute",
+    alignSelf: "center",
+    zIndex: 2,
+    top: 70,
+  },
+  rowContainer: {
+    position: "relative",
+    zIndex: 1,
   },
   row: {
     flexDirection: "row",
