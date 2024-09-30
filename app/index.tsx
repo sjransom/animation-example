@@ -58,7 +58,7 @@ const Index = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.6)"]}
+        colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.9)"]}
         style={styles.gradientOverlay}
       />
       <View style={styles.cinemaContainer}>
