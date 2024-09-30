@@ -1,53 +1,11 @@
 import React, { useRef, useEffect } from "react";
-import { Animated, View, StyleSheet, Dimensions, Image } from "react-native";
+import { Animated, View, StyleSheet, Image } from "react-native";
+import { images } from "./data";
 
-const { width } = Dimensions.get("window");
+const CARD_HEIGHT = 100;
 const CARD_WIDTH = 200;
-
-const images = [
-  {
-    id: "1",
-    imageSource: require("../assets/Card_Image_Portrait_1.png"),
-  },
-  {
-    id: "2",
-    imageSource: require("../assets/Card_Image_Portrait_2.png"),
-  },
-  {
-    id: "3",
-    imageSource: require("../assets/Card_Image_Portrait_3.png"),
-  },
-  {
-    id: "4",
-    imageSource: require("../assets/Card_Image_Portrait_4.png"),
-  },
-  {
-    id: "5",
-    imageSource: require("../assets/Card_Image_Portrait_5.png"),
-  },
-  {
-    id: "6",
-    imageSource: require("../assets/Card_Image_Portrait_6.png"),
-  },
-  {
-    id: "7",
-    imageSource: require("../assets/Card_Image_Portrait_7.png"),
-  },
-  {
-    id: "8",
-    imageSource: require("../assets/Card_Image_Portrait_8.png"),
-  },
-  {
-    id: "9",
-    imageSource: require("../assets/Card_Image_Portrait_9.png"),
-  },
-  {
-    id: "10",
-    imageSource: require("../assets/Card_Image_Portrait_10.png"),
-  },
-];
-
 const NUM_CARDS = images.length;
+const totalCardWidth = CARD_WIDTH * NUM_CARDS;
 
 const Index = () => {
   const topRow = useRef(new Animated.Value(0)).current;
@@ -55,35 +13,21 @@ const Index = () => {
 
   const animateTopRow = () => {
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(topRow, {
-          toValue: -width,
-          duration: 4000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(topRow, {
-          toValue: 0,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
+      Animated.timing(topRow, {
+        toValue: -totalCardWidth,
+        duration: 11000,
+        useNativeDriver: true,
+      })
     ).start();
   };
 
   const animateBottomRow = () => {
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(bottomRow, {
-          toValue: -width,
-          duration: 6000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(bottomRow, {
-          toValue: 0,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
+      Animated.timing(bottomRow, {
+        toValue: -totalCardWidth,
+        duration: 14000,
+        useNativeDriver: true,
+      })
     ).start();
   };
 
@@ -103,32 +47,8 @@ const Index = () => {
           },
         ]}
       >
-        {/* {Array.from({ length: NUM_CARDS }).map((_, index: number) => (
-          <View key={index}>
-            <Image
-              style={styles.card}
-              source={require("../assets/Card_Image_Portrait_Left.png")}
-            ></Image>
-            <Image
-              style={styles.card}
-              source={require("../assets/Card_Image_Portrait_3.png")}
-            ></Image>
-            <Image
-              style={styles.card}
-              source={require("../assets/Card_Image_Portrait_5.png")}
-            ></Image>
-            <Image
-              style={styles.card}
-              source={require("../assets/Card_Image_Portrait_4.png")}
-            ></Image>
-          </View>
-        ))} */}
-        {images.map((image) => (
-          <Image
-            key={image.id}
-            style={styles.card}
-            source={image.imageSource}
-          ></Image>
+        {[...images, ...images].map((image, index) => (
+          <Image key={index} style={styles.card} source={image.imageSource} />
         ))}
       </Animated.View>
     );
@@ -136,8 +56,16 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      {renderCards(topRow, 0)}
-      {renderCards(bottomRow, 110)}
+      <View style={styles.cinemaContainer}>
+        <Image
+          style={{ width: 80, height: 80 }}
+          source={require("../assets/sky-cinema.png")}
+        />
+      </View>
+      <View style={styles.rowContainer}>
+        {renderCards(topRow, 0)}
+        {renderCards(bottomRow, 110)}
+      </View>
     </View>
   );
 };
@@ -145,18 +73,27 @@ const Index = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    position: "relative",
+  },
+  cinemaContainer: {
+    position: "absolute",
+    alignSelf: "center",
+    zIndex: 2,
+    top: 70,
+  },
+  rowContainer: {
+    position: "relative",
+    zIndex: 1,
   },
   row: {
     flexDirection: "row",
     position: "absolute",
-    width: CARD_WIDTH * NUM_CARDS,
+    width: totalCardWidth * 2,
   },
   card: {
     width: CARD_WIDTH,
-    height: 100,
+    height: CARD_HEIGHT,
     margin: 5,
-    // backgroundColor: "grey",
     borderRadius: 10,
   },
 });
