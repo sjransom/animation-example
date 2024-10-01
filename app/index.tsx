@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { Animated, View, StyleSheet, Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { images } from "./data";
 
 const CARD_HEIGHT = 100;
@@ -15,7 +16,7 @@ const Index = () => {
     Animated.loop(
       Animated.timing(topRow, {
         toValue: -totalCardWidth,
-        duration: 11000,
+        duration: 21000,
         useNativeDriver: true,
       })
     ).start();
@@ -25,7 +26,7 @@ const Index = () => {
     Animated.loop(
       Animated.timing(bottomRow, {
         toValue: -totalCardWidth,
-        duration: 14000,
+        duration: 24000,
         useNativeDriver: true,
       })
     ).start();
@@ -56,6 +57,10 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.9)"]}
+        style={styles.gradientOverlay}
+      />
       <View style={styles.cinemaContainer}>
         <Image
           style={{ width: 80, height: 80 }}
@@ -72,13 +77,14 @@ const Index = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: 250,
+    maxHeight: 250,
     position: "relative",
   },
   cinemaContainer: {
     position: "absolute",
     alignSelf: "center",
-    zIndex: 2,
+    zIndex: 3,
     top: 70,
   },
   rowContainer: {
@@ -95,6 +101,14 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     margin: 5,
     borderRadius: 10,
+  },
+  gradientOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "100%",
+    zIndex: 2,
   },
 });
 
